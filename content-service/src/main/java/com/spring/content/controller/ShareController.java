@@ -5,6 +5,7 @@ import com.spring.content.common.ResultCode;
 import com.spring.content.domain.dto.ShareDto;
 import com.spring.content.domain.entity.Share;
 import com.spring.content.domain.entity.User;
+import com.spring.content.openfeign.UserService;
 import com.spring.content.service.ShareService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,8 @@ public class ShareController {
 
     private final RestTemplate restTemplate;
 
+    private final UserService userService;
+
     private final String SERVICE_URL = "http://user-service";
 
 
@@ -41,8 +44,10 @@ public class ShareController {
         if (share != null) {
             // 获得用户id
             Integer userId = share.getUserId();
-            // 访问用户服务
-            User user = restTemplate.getForObject(SERVICE_URL + "/users/" + userId, User.class);
+            // 通过restTemplate访问用户服务
+            //User user = restTemplate.getForObject(SERVICE_URL + "/users/" + userId, User.class);
+            // 通过Openfeign访问用户服务
+            User user = userService.getUser(userId);
             ShareDto shareDto = null;
             if (user != null) {
                 // 拼装返回数据

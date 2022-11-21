@@ -77,6 +77,13 @@
             <version>${component.version}</version>
         </dependency>
 
+        <!--服务通信调用 openfeign 组件-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>${component.version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
