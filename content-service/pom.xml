@@ -97,7 +97,7 @@
             <version>${component.version}</version>
         </dependency>
 
-        <!-- hystrix组件，专门用来演示OpenFeign降级 -->
+        <!-- hystrix 组件，专门用来演示 OpenFeign 降级 -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>

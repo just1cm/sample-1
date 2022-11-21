@@ -1,5 +1,6 @@
 package com.spring.user.controller;
 
+import com.spring.user.common.ResponseResult;
 import com.spring.user.domain.entity.User;
 import com.spring.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -21,13 +22,23 @@ public class UserController {
     private final UserService userService;
 
 
+    //@GetMapping("{id}")
+    //public User getUserById(@PathVariable Integer id) {
+    //    try {
+    //        Thread.sleep(6000);
+    //    } catch (InterruptedException e) {
+    //        throw new RuntimeException(e);
+    //    }
+    //    return userService.findById(id);
+    //}
+
     @GetMapping("{id}")
-    public User getUserById(@PathVariable Integer id) {
+    public ResponseResult getUserById(@PathVariable Integer id) {
         try {
             Thread.sleep(6000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return userService.findById(id);
+        return ResponseResult.success(userService.findById(id));
     }
 }

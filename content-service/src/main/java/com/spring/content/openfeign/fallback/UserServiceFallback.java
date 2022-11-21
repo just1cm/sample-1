@@ -15,9 +15,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserServiceFallback implements UserService {
     @Override
-    public User getUser(int id) {
+    public ResponseResult getUser(int id) {
         log.info("fallback getUser");
-        return User.builder().nickname("降级方案返回用户").avatar("default.jpg").build();
+        return ResponseResult.success(User.builder().nickname("降级方案返回用户").avatar("default.jpg").build());
     }
 
 }

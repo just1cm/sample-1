@@ -53,7 +53,7 @@ public class ShareController {
             // 通过restTemplate访问用户服务
             //User user = restTemplate.getForObject(SERVICE_URL + "/users/" + userId, User.class);
             // 通过Openfeign访问用户服务
-            User user = userService.getUser(userId);
+            User user = (User)userService.getUser(userId).getData();
             ShareDto shareDto = null;
             if (user != null) {
                 // 拼装返回数据

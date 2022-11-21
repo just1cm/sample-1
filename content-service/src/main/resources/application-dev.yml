@@ -39,3 +39,4 @@ feign:
         connectTimeout: 1000
         # 服务请求响应阶段5秒超时
         readTimeout: 5000
+
