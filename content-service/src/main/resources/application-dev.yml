@@ -29,8 +29,8 @@ spring:
     open-in-view: false
 
 feign:
-#  circuitbreaker:
-#    enabled: true
+  circuitbreaker:
+    enabled: true
   client:
     config:
       # 全局超时配置

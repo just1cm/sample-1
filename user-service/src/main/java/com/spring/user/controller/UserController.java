@@ -23,6 +23,11 @@ public class UserController {
 
     @GetMapping("{id}")
     public User getUserById(@PathVariable Integer id) {
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
         return userService.findById(id);
     }
 }

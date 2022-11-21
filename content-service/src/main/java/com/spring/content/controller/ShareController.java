@@ -10,6 +10,8 @@ import com.spring.content.service.ShareService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,6 +25,7 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 @RequestMapping(value = "/shares")
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@RefreshScope
 public class ShareController {
     private final ShareService shareService;
 
@@ -31,6 +34,9 @@ public class ShareController {
     private final UserService userService;
 
     private final String SERVICE_URL = "http://user-service";
+
+    @Value("${enableRequest:false}")
+    private Boolean enableRequest;
 
 
     /**
@@ -57,5 +63,13 @@ public class ShareController {
         } else {
             return ResponseResult.failure(ResultCode.RESULT_CODE_DATA_NONE);
         }
+    }
+
+    @GetMapping("/test")
+    public String testRequest() {
+        if (!enableRequest) {
+            return "暂停服务";
+        }
+        return "服务正常";
     }
 }

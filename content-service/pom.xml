@@ -84,6 +84,33 @@
             <version>${component.version}</version>
         </dependency>
 
+        <!-- Nacos Config 配置组件 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <version>${spring.cloud.alibaba.version}</version>
+        </dependency>
+        <!-- 启动文件 bootstrap 依赖 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+            <version>${component.version}</version>
+        </dependency>
+
+        <!-- hystrix组件，专门用来演示OpenFeign降级 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+            <version>2.2.10.RELEASE</version>
+            <exclusions>
+                <!-- 移除Ribbon负载均衡器，避免冲突 -->
+                <exclusion>
+                    <groupId>org.springframework.cloud</groupId>
+                    <artifactId>spring-cloud-netflix-ribbon</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
     </dependencies>
 
     <build>
