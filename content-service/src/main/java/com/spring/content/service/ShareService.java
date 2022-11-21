@@ -1,6 +1,8 @@
 package com.spring.content.service;
 
 import com.spring.content.domain.entity.Share;
+import com.spring.content.openfeign.fallback.UserServiceFallback;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

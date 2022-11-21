@@ -23,6 +23,7 @@
         <spring.cloud.version>2021.0.1</spring.cloud.version>
         <spring.cloud.alibaba.version>2021.0.1.0</spring.cloud.alibaba.version>
         <nacos.version>1.4.3</nacos.version>
+        <component.version>3.1.1</component.version>
     </properties>
 
 
@@ -70,6 +71,29 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+        <!-- Nacos Config 配置组件 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+            <version>${spring.cloud.alibaba.version}</version>
+        </dependency>
+
+        <!-- 启动文件 bootstrap 依赖 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-bootstrap</artifactId>
+            <version>${component.version}</version>
+        </dependency>
+
+        <!--  SpringBoot热更新 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+
     </dependencies>
 
 

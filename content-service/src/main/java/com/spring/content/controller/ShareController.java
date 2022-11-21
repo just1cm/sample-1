@@ -1,5 +1,6 @@
 package com.spring.content.controller;
 
+import com.alibaba.fastjson2.JSONObject;
 import com.spring.content.common.ResponseResult;
 import com.spring.content.common.ResultCode;
 import com.spring.content.domain.dto.ShareDto;
@@ -52,19 +53,33 @@ public class ShareController {
             Integer userId = share.getUserId();
             // 通过restTemplate访问用户服务
             //User user = restTemplate.getForObject(SERVICE_URL + "/users/" + userId, User.class);
-            // 通过Openfeign访问用户服务
-            User user = (User)userService.getUser(userId).getData();
-            ShareDto shareDto = null;
-            if (user != null) {
+
+            // 通过 Openfeign 访问用户服务
+            ResponseResult res = userService.getUser(userId);
+            // 解析服务返回数据中的data
+            Object data = res.getData();
+            ShareDto shareDto;
+            if (data != null) {
+                // json转换为Java对象
+                String jsonString = JSONObject.toJSONString(data);
+                JSONObject obj = JSONObject.parseObject(jsonString);
+                User user = JSONObject.parseObject(String.valueOf(obj), User.class);
                 // 拼装返回数据
                 shareDto = ShareDto.builder().share(share).nickName(user.getNickname()).avatar(user.getAvatar()).build();
+                return ResponseResult.success(shareDto);
+            } else {
+                return ResponseResult.failure(ResultCode.RESULT_CODE_DATA_NONE);
             }
-            return ResponseResult.success(shareDto);
         } else {
             return ResponseResult.failure(ResultCode.RESULT_CODE_DATA_NONE);
         }
     }
 
+    /**
+     * 业务开关
+     *
+     * @return String
+     */
     @GetMapping("/test")
     public String testRequest() {
         if (!enableRequest) {

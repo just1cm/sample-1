@@ -1,7 +1,6 @@
 package com.spring.content.openfeign;
 
 import com.spring.content.common.ResponseResult;
-import com.spring.content.domain.entity.User;
 import com.spring.content.openfeign.fallback.UserServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author: mqxu
  * @date: 2022-11-21
  **/
-@FeignClient(value = "user-service", path = "/users",fallback = UserServiceFallback.class)
+@FeignClient(value = "user-service", path = "/users", fallback = UserServiceFallback.class)
+//@FeignClient(value = "user-service", path = "/users", fallbackFactory = UserServiceFallbackFactory.class)
 public interface UserService {
     /**
      * 调用用户服务
