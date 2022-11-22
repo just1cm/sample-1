@@ -3,6 +3,7 @@ package com.spring.content.controller;
 import com.alibaba.fastjson2.JSONObject;
 import com.spring.content.common.ResponseResult;
 import com.spring.content.common.ResultCode;
+import com.spring.content.domain.dto.ShareAuditDto;
 import com.spring.content.domain.dto.ShareDto;
 import com.spring.content.domain.entity.Share;
 import com.spring.content.domain.entity.User;
@@ -86,5 +87,12 @@ public class ShareController {
             return "暂停服务";
         }
         return "服务正常";
+    }
+
+    @PostMapping("/audit")
+    public ResponseResult auditShare(@RequestBody ShareAuditDto shareAuditDto) {
+        log.info(shareAuditDto + ">>>>>>>>>>>>>");
+        Share share = shareService.auditShare(shareAuditDto);
+        return ResponseResult.success(share);
     }
 }

@@ -1,5 +1,6 @@
 package com.spring.content.service;
 
+import com.spring.content.domain.dto.ShareAuditDto;
 import com.spring.content.domain.entity.Share;
 import com.spring.content.openfeign.fallback.UserServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -22,5 +23,13 @@ public interface ShareService {
      * @return 分享内容
      */
     Share findById(Integer id);
+
+    /**
+     * 审核分享
+     *
+     * @param shareAuditDto shareAuditDto
+     * @return Share
+     */
+    Share auditShare(ShareAuditDto shareAuditDto);
     
 }
