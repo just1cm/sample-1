@@ -1,4 +1,10 @@
 server:
   port: 8083
+redis:
+  connectionTimeout: 5000
+  database: 0
+  host: localhost
+  password: ''
+  port: 6379
 
 
