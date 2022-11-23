@@ -1,0 +1,37 @@
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+         # 开启动态路由
+          enabled: true 
+          lower-case-service-id: true
+      routes:
+        - id: route-user
+          uri: lb://user-service
+          predicates:
+            - Path=/api/v1/users/**
+          filters:  
+            - StripPrefix=2
+        - id: route-content
+          uri: lb://content-service
+          predicates:
+            - Path=/api/v1/shares/**
+          filters:    
+            - StripPrefix=2    
+            # - ShareId=1,10   
+        - id: route-notice
+          uri: lb://notice-service
+          predicates:
+            - Path=/api/v1/notices/**
+            - After=2022-11-22T09:13:44.000+00:00[Asia/Shanghai] 
+          filters:              
+            - StripPrefix=2    
+        # - id: route-test
+        #   uri: lb://notice-service
+        #   order: 1
+        #   predicates:
+        #     - Path=/api/v1/notices/**    
+        #   filters:              
+        #     - StripPrefix=2    
+        #     - RedirectTo=302,https://juejin.cn                              

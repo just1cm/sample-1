@@ -1,6 +1,6 @@
 package com.spring.content.openfeign;
 
-import com.spring.content.common.ResponseResult;
+import com.spring.content.domain.entity.User;
 import com.spring.content.openfeign.fallback.UserServiceFallback;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,5 +21,5 @@ public interface UserService {
      * @return User
      */
     @GetMapping("{id}")
-    ResponseResult getUser(@PathVariable(value = "id") int id);
+    User getUser(@PathVariable(value = "id") int id);
 }

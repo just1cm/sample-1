@@ -1,6 +1,7 @@
 package com.spring.content.controller;
 
-import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import com.spring.content.common.ResponseResult;
 import com.spring.content.common.ResultCode;
 import com.spring.content.domain.dto.ShareAuditDto;
@@ -47,6 +48,7 @@ public class ShareController {
      * @return User
      */
     @GetMapping("{id}")
+    @SentinelResource(value = "getShareById", blockHandler = "getShareByIdBlock")
     public ResponseResult getShareById(@PathVariable Integer id) {
         Share share = shareService.findById(id);
         if (share != null) {
@@ -56,15 +58,9 @@ public class ShareController {
             //User user = restTemplate.getForObject(SERVICE_URL + "/users/" + userId, User.class);
 
             // 通过 Openfeign 访问用户服务
-            ResponseResult res = userService.getUser(userId);
-            // 解析服务返回数据中的data
-            Object data = res.getData();
+            User user = userService.getUser(userId);
             ShareDto shareDto;
-            if (data != null) {
-                // json转换为Java对象
-                String jsonString = JSONObject.toJSONString(data);
-                JSONObject obj = JSONObject.parseObject(jsonString);
-                User user = JSONObject.parseObject(String.valueOf(obj), User.class);
+            if (user != null) {
                 // 拼装返回数据
                 shareDto = ShareDto.builder().share(share).nickName(user.getNickname()).avatar(user.getAvatar()).build();
                 return ResponseResult.success(shareDto);
@@ -94,5 +90,11 @@ public class ShareController {
         log.info(shareAuditDto + ">>>>>>>>>>>>>");
         Share share = shareService.auditShare(shareAuditDto);
         return ResponseResult.success(share);
+    }
+
+    public ResponseResult getShareByIdBlock(@PathVariable Integer id, BlockException exception) {
+        log.info("接口被限流");
+        log.info(exception.toString());
+        return ResponseResult.success(Share.builder().id(id).title("限流返回内容").build());
     }
 }

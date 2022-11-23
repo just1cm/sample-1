@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @description:
  * @author: mqxu
@@ -23,6 +25,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Integer id) {
         return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
 }

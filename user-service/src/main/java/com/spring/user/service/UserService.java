@@ -3,6 +3,8 @@ package com.spring.user.service;
 
 import com.spring.user.domain.entity.User;
 
+import java.util.List;
+
 /**
  * @description:
  * @author: mqxu
@@ -16,4 +18,11 @@ public interface UserService {
      * @return User
      */
     User findById(Integer id);
+
+    /**
+     * 查询所有用户
+     *
+     * @return List<User>
+     */
+    List<User> findAll();
 }
